@@ -1,27 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="./js/html2canvas.js"></script>
+    <meta charset="utf-8">
+    <title>hangge.com</title>
+    <style>
+        body {
+            position: relative;
+        }
+        
+        #rongqi {
+            width: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        
+        #rongqi img {
+            width: 100%;
+            /* width: 220px;  */
+            /* height: 84px; */
+        }
+    </style>
 </head>
 
-<body>
-    <div id="container">
-        <dl>
-            <dt><img src="./assets/2222.jpg" width="100px" height="300px"></dt>
-            <dd>沈梦瑶</dd>
-        </dl>
+<body style="margin:0px">
+    <div id="capture" style="padding: 10px; background: #f5da55;">
+        <h4 style="color: #000; ">欢迎访问 hangge.com</h4>
+        <ul>
+            <li>肖战</li>
+            <li>易烊千玺</li>
+            <li>王一博</li>
+        </ul>
     </div>
-    <script>
-        window.onload = function() {
-            html2canvas(document.body).then(function(canvas) {
-                document.body.appnedChild(canvas);
+    <button type="button" name="button" onclick="convert()">点击生成图片，长按保存</button>
+    <!--生成的图片的存放容器-->
+    <div id="rongqi"></div>
+    <br>
+    <script type="text/javascript" src="./js/html2canvas.js"></script>
+    <script type="text/javascript">
+        document.querySelector('button').style.display = 'block';
+        //点击生成之后开始对页面元素进行处理
+        // 此按钮文字隐藏掉
+        function convert() {
+            document.querySelector('button').style.display = 'none';
+            html2canvas(document.querySelector("#capture"), {
+                scale: 2,
+                allowTaint: true,
+                useCORS: true
+            }).then(canvas => {
+                // document.body.appendChild(canvas);//默认直接插入到最下方
+                var url = canvas.toDataURL('image/png'); // base64数据,将canvas转化成图片格式的编码
+                var screenimage = new Image(); //创建一个图片对象，内含图片的一些属性可使用
+                screenimage.src = url; //将路径的编码赋给路径，此时screenimg即能完整显示出图片来，当然目前此图片还没发查看。
+                document.getElementById('rongqi').appendChild(screenimage); //我自行设置了一个盒子，将生成的图片显示出来，并定位并覆盖掉了内容。
             });
-        };
+        }
     </script>
 </body>
 
