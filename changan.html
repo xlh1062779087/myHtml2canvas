@@ -38,6 +38,7 @@
     <div id="rongqi"></div>
     <br>
     <script type="text/javascript" src="./js/html2canvas.js"></script>
+    <script src="./js/FileSaver.js"></script>
     <script type="text/javascript">
         document.querySelector('button').style.display = 'block';
         //点击生成之后开始对页面元素进行处理
@@ -54,6 +55,10 @@
                 var screenimage = new Image(); //创建一个图片对象，内含图片的一些属性可使用
                 screenimage.src = url; //将路径的编码赋给路径，此时screenimg即能完整显示出图片来，当然目前此图片还没发查看。
                 document.getElementById('rongqi').appendChild(screenimage); //我自行设置了一个盒子，将生成的图片显示出来，并定位并覆盖掉了内容。
+                //将canvas内容保存为文件并下载
+                canvas.toBlob(function(blob) {
+                    saveAs(blob, "bjyx.png");
+                });
             });
         }
     </script>
