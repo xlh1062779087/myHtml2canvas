@@ -46,16 +46,16 @@
         function convert() {
             document.querySelector('button').style.display = 'none';
             html2canvas(document.querySelector("#capture"), {
-                scale: 2,
-                allowTaint: true,
-                useCORS: true
+                scale: 2, //放大到原先的两倍，保证不失真。
+                allowTaint: true, //允许不同源的图片污染画布
+                useCORS: true //允许使用 CORS 从服务器加载图片
             }).then(canvas => {
                 // document.body.appendChild(canvas);//默认直接插入到最下方
                 var url = canvas.toDataURL('image/png'); // base64数据,将canvas转化成图片格式的编码
                 var screenimage = new Image(); //创建一个图片对象，内含图片的一些属性可使用
                 screenimage.src = url; //将路径的编码赋给路径，此时screenimg即能完整显示出图片来，当然目前此图片还没发查看。
                 document.getElementById('rongqi').appendChild(screenimage); //我自行设置了一个盒子，将生成的图片显示出来，并定位并覆盖掉了内容。
-                //将canvas内容保存为文件并下载
+                //将canvas内容保存为文件并下载，只适用于pc端
                 canvas.toBlob(function(blob) {
                     saveAs(blob, "bjyx.png");
                 });
